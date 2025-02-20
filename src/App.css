@@ -10,6 +10,9 @@
 input[type="radio"] {
   color: var(--selected-circle)
 }
+input[type="checkbox"] {
+  color: var(--selected-circle)
+}
 
 button {
   background-color: var(--button-color);

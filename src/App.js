@@ -10,7 +10,7 @@ function App() {
   const [received, setReceived] = useState([]);
   const [creditNotes, setCreditNotes] = useState([]);
   const [selectedReceived, setSelectedReceived] = useState(undefined);
-  const [selectedCreditNote, setSelectedCreditNote] = useState(undefined);
+  const [selectedCreditNotes, setSelectedCreditNotes] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         getPendings()
@@ -25,18 +25,25 @@ function App() {
   const showModal = () => {
     setIsOpen(true);
   };
+  const addCreditNote = (id) => {
+    if (selectedCreditNotes.includes(id)) {
+      setSelectedCreditNotes(selectedCreditNotes.filter(creditNote => creditNote !== id));
+    } else {
+      setSelectedCreditNotes([...selectedCreditNotes, id]);
+    }
+  };
   const assignCreditNote = () => {
-    const newCreditNotes = creditNotes.filter(creditNote => creditNote.id !== selectedCreditNote);
+    const newCreditNotes = creditNotes.filter(creditNote => !selectedCreditNotes.includes(creditNote.id));
     setCreditNotes(newCreditNotes);
     setSelectedReceived(undefined);
-    setSelectedCreditNote(undefined);
+    setSelectedCreditNotes([]);
     setIsOpen(false);
   };
   const summaryComponent = <SelectionSummary
     received={received}
     creditNotes={creditNotes}
     selectedReceived={selectedReceived}
-    selectedCreditNote={selectedCreditNote}
+    selectedCreditNotes={selectedCreditNotes}
   />;
   return (
     <div className="p-8 flex flex-col items-center gap-4 md:w-2/3 mx-auto">
@@ -47,12 +54,12 @@ function App() {
         creditNotes.length > 0 ?
           <>
           <h1 className="text-2xl font-bold text-center">Selecciona una nota de crédito</h1>
-          <InvoicesList invoices={creditNotes} radioName="creditNotes"
-            selectedID={selectedCreditNote} handleCheck={(id) => setSelectedCreditNote(id)}/>
+          <InvoicesList invoices={creditNotes} radioName="creditNotes" type="multiple"
+            selectedID={selectedCreditNotes} handleCheck={(id) => addCreditNote(id)}/>
           </>:
           <p className="text-center font-semibold">No hay notas de crédito disponibles</p>
       )}
-      {selectedReceived && selectedCreditNote && (
+      {selectedReceived && selectedCreditNotes.length > 0 && (
         <>
         {summaryComponent}
         <button onClick={showModal}>

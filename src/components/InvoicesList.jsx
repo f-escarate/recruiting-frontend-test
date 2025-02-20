@@ -1,6 +1,6 @@
 import { toCLP, toUSD } from "../utils/currency";
 
-export default function InvoicesList({ invoices, radioName, selectedID, handleCheck }) {
+export default function InvoicesList({ invoices, radioName, selectedID, handleCheck, type="single" }) {
     return (
         <table>
             <thead></thead>
@@ -10,8 +10,7 @@ export default function InvoicesList({ invoices, radioName, selectedID, handleCh
                         onClick={()=>handleCheck(invoice.id)}>
                         <td>
                             <div className="flex gap-1 items-center h-12">
-                                <input type="radio" id={invoice.id} name={radioName}
-                                    checked={selectedID === invoice.id}  value={selectedID} onChange={()=>handleCheck(invoice.id)} />
+                                <Radio invoice={invoice} radioName={radioName} selectedID={selectedID} handleCheck={handleCheck} type={type} />
                                 <p className="text-ellipsis w-24 overflow-hidden">
                                     {invoice.id} 
                                 </p>
@@ -45,5 +44,20 @@ function CurrencyCell({ amount, currency }) {
                 (${toUSD(amount, currency)} USD)
             </p>
         </div>
-)
+)}
+
+function Radio({ invoice, radioName, selectedID, handleCheck, type }) {
+    if (type === "single") {
+        return (
+            <input type="radio" id={invoice.id} name={radioName}
+                checked={selectedID === invoice.id}  value={selectedID} onChange={()=>handleCheck(invoice.id)} />
+        )
+    }
+    else if (type === "multiple") {
+        return (
+            <input type="checkbox" id={invoice.id} name={radioName}
+                checked={selectedID.includes(invoice.id)} value={selectedID} onChange={()=>handleCheck(invoice.id)} />
+        )
+    }
+    return null;
 }
