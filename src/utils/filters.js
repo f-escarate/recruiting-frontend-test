@@ -7,7 +7,7 @@ export function separateInvoices(invoices) {
     for (let i = 0; i < invoices.length; i++) {
         if (invoices[i].type === 'received') {
             result.received.push(invoices[i]);
-        } else {
+        } else if (invoices[i].type === 'credit_note') {
             result.creditNotes.push(invoices[i]);
         }
     }
