@@ -8,8 +8,8 @@ import Modal from './components/Modal';
 function App() {
   const [received, setReceived] = useState([]);
   const [creditNotes, setCreditNotes] = useState([]);
-  const [selectedReceived, setSelectedReceived] = useState(null);
-  const [selectedCreditNote, setSelectedCreditNote] = useState(null);
+  const [selectedReceived, setSelectedReceived] = useState(undefined);
+  const [selectedCreditNote, setSelectedCreditNote] = useState(undefined);
   const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         getPendings()
@@ -25,13 +25,15 @@ function App() {
     setIsOpen(true);
   };
   return (
-    <div className="p-8 flex flex-col items-center gap-4">
+    <div className="p-8 flex flex-col items-center gap-4 md:w-2/3 mx-auto">
       <h1 className="text-2xl font-bold text-center">Selecciona un factura</h1>
-      <InvoicesList invoices={received} handleCheck={(id) => setSelectedReceived(id)} radioName="receivedInvoices"/>
+      <InvoicesList invoices={received} radioName="receivedInvoices"
+        selectedID={selectedReceived} handleCheck={(id) => setSelectedReceived(id)}/>
       {selectedReceived && (
         <>
         <h1 className="text-2xl font-bold text-center">Selecciona una nota de crédito</h1>
-        <InvoicesList invoices={creditNotes} handleCheck={(id) => setSelectedCreditNote(id)} radioName="creditNotes"/>
+        <InvoicesList invoices={creditNotes} radioName="creditNotes"
+          selectedID={selectedCreditNote} handleCheck={(id) => setSelectedCreditNote(id)}/>
         </>
       )}
       {selectedReceived && selectedCreditNote && (

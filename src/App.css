@@ -15,7 +15,7 @@ button {
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
 }
 
@@ -32,4 +32,25 @@ button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+tr p.light {
+  color: var(--gray);
+}
+
+tr.selected {
+  background-color: var(--selected-background);
+  p, p.light {
+    color: var(--selected-text);
+  }
+}
+
+td {
+  padding-left: 16px;
+  padding-right: 16px;
 }
