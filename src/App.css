@@ -37,8 +37,9 @@ button {
 
 table {
   width: 100%;
-  border-collapse: collapse;
   table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 tr p.light {
   color: var(--gray);
@@ -54,4 +55,17 @@ tr.selected {
 td {
   padding-left: 16px;
   padding-right: 16px;
+  border: solid 1px #bebebe;
+  border-style: none none solid none;
 }
+
+td:last-child { border-style: none solid solid none; }
+
+tr:first-child td:first-child { border-top-left-radius: 7px; }
+tr:first-child td:last-child { border-top-right-radius: 7px; }
+
+tr:last-child td:first-child { border-bottom-left-radius: 7px; }
+tr:last-child td:last-child { border-bottom-right-radius: 7px; }
+
+tr:first-child td { border-top-style: solid; }
+tr td:first-child { border-left-style: solid; }
