@@ -38,7 +38,7 @@ function App() {
   />;
   return (
     <div className="p-8 flex flex-col items-center gap-4 md:w-2/3 mx-auto">
-      <h1 className="text-2xl font-bold text-center">Selecciona un factura</h1>
+      <h1 className="text-2xl font-bold text-center">Selecciona una factura</h1>
       <InvoicesList invoices={received} radioName="receivedInvoices"
         selectedID={selectedReceived} handleCheck={(id) => setSelectedReceived(id)}/>
       {selectedReceived && (
