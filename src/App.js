@@ -25,7 +25,9 @@ function App() {
   const showModal = () => {
     setIsOpen(true);
   };
-  const resetSelection = () => {
+  const assignCreditNote = () => {
+    const newCreditNotes = creditNotes.filter(creditNote => creditNote.id !== selectedCreditNote);
+    setCreditNotes(newCreditNotes);
     setSelectedReceived(undefined);
     setSelectedCreditNote(undefined);
     setIsOpen(false);
@@ -42,11 +44,13 @@ function App() {
       <InvoicesList invoices={received} radioName="receivedInvoices"
         selectedID={selectedReceived} handleCheck={(id) => setSelectedReceived(id)}/>
       {selectedReceived && (
-        <>
-        <h1 className="text-2xl font-bold text-center">Selecciona una nota de crédito</h1>
-        <InvoicesList invoices={creditNotes} radioName="creditNotes"
-          selectedID={selectedCreditNote} handleCheck={(id) => setSelectedCreditNote(id)}/>
-        </>
+        creditNotes.length > 0 ?
+          <>
+          <h1 className="text-2xl font-bold text-center">Selecciona una nota de crédito</h1>
+          <InvoicesList invoices={creditNotes} radioName="creditNotes"
+            selectedID={selectedCreditNote} handleCheck={(id) => setSelectedCreditNote(id)}/>
+          </>:
+          <p className="text-center font-semibold">No hay notas de crédito disponibles</p>
       )}
       {selectedReceived && selectedCreditNote && (
         <>
@@ -61,7 +65,7 @@ function App() {
           <img src="./check-world-vector-logo.svg" alt="check" className="w-16 h-16 mx-auto" />
           <p className="text-lg font-semibold text-wrap w-72 text-center">Nota de crédito asignada correctamente</p>
           {summaryComponent}
-          <button onClick={resetSelection}>Seguir asignando</button>
+          <button onClick={assignCreditNote}>Seguir asignando</button>
         </div>
       </Modal>
     </div>
