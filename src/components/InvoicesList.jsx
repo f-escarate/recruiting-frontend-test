@@ -1,3 +1,5 @@
+import { toCLP, toUSD } from "../utils/currency";
+
 export default function InvoicesList({ invoices, radioName, selectedID, handleCheck }) {
     return (
         <table>
@@ -33,16 +35,14 @@ export default function InvoicesList({ invoices, radioName, selectedID, handleCh
     )
 }
 function CurrencyCell({ amount, currency }) {
-    const USD_CLP_ratio = 800;
-    const clp_value = currency === "CLP" ? amount : amount * USD_CLP_ratio;
-    const usd_value = currency === "USD" ? amount : amount / USD_CLP_ratio;
+    
     return (
         <div className="flex gap-1 items-center h-12 text-center justify-center">
             <p>
-                ${clp_value} CLP
+                ${toCLP(amount, currency)} CLP
             </p>
             <p className="light">
-                (${usd_value} USD)
+                (${toUSD(amount, currency)} USD)
             </p>
         </div>
 )
