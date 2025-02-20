@@ -24,6 +24,11 @@ function App() {
   const showModal = () => {
     setIsOpen(true);
   };
+  const resetSelection = () => {
+    setSelectedReceived(undefined);
+    setSelectedCreditNote(undefined);
+    setIsOpen(false);
+  };
   return (
     <div className="p-8 flex flex-col items-center gap-4 md:w-2/3 mx-auto">
       <h1 className="text-2xl font-bold text-center">Selecciona un factura</h1>
@@ -45,7 +50,7 @@ function App() {
         <div className="bg-white rounded-lg p-4 flex flex-col gap-4 items-center">
           <img src="./check-world-vector-logo.svg" alt="check" className="w-16 h-16 mx-auto" />
           <p className="text-lg font-semibold text-wrap w-72 text-center">Nota de crédito asignada correctamente</p>
-          <button onClick={() => setIsOpen(false)}>Seguir asignando</button>
+          <button onClick={resetSelection}>Seguir asignando</button>
         </div>
       </Modal>
     </div>
