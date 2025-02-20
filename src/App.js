@@ -30,6 +30,12 @@ function App() {
     setSelectedCreditNote(undefined);
     setIsOpen(false);
   };
+  const summaryComponent = <SelectionSummary
+    received={received}
+    creditNotes={creditNotes}
+    selectedReceived={selectedReceived}
+    selectedCreditNote={selectedCreditNote}
+  />;
   return (
     <div className="p-8 flex flex-col items-center gap-4 md:w-2/3 mx-auto">
       <h1 className="text-2xl font-bold text-center">Selecciona un factura</h1>
@@ -43,20 +49,18 @@ function App() {
         </>
       )}
       {selectedReceived && selectedCreditNote && (
+        <>
+        {summaryComponent}
         <button onClick={showModal}>
           Asignar
         </button>
+        </>
       )}
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className="bg-white rounded-lg p-4 flex flex-col gap-4 items-center">
           <img src="./check-world-vector-logo.svg" alt="check" className="w-16 h-16 mx-auto" />
           <p className="text-lg font-semibold text-wrap w-72 text-center">Nota de crédito asignada correctamente</p>
-          <SelectionSummary
-            received={received}
-            creditNotes={creditNotes}
-            selectedReceived={selectedReceived}
-            selectedCreditNote={selectedCreditNote}
-          />
+          {summaryComponent}
           <button onClick={resetSelection}>Seguir asignando</button>
         </div>
       </Modal>
