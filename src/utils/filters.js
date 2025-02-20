@@ -13,3 +13,7 @@ export function separateInvoices(invoices) {
     }
     return result;
 }
+
+export function findInvoiceById(invoices, id) {
+    return invoices.find(invoice => invoice.id === id);
+}

@@ -4,6 +4,7 @@ import { getPendings } from './api/invoices';
 import { separateInvoices } from './utils/filters';
 import InvoicesList from './components/InvoicesList';
 import Modal from './components/Modal';
+import SelectionSummary from './components/SelectionSummary';
 
 function App() {
   const [received, setReceived] = useState([]);
@@ -50,6 +51,12 @@ function App() {
         <div className="bg-white rounded-lg p-4 flex flex-col gap-4 items-center">
           <img src="./check-world-vector-logo.svg" alt="check" className="w-16 h-16 mx-auto" />
           <p className="text-lg font-semibold text-wrap w-72 text-center">Nota de crédito asignada correctamente</p>
+          <SelectionSummary
+            received={received}
+            creditNotes={creditNotes}
+            selectedReceived={selectedReceived}
+            selectedCreditNote={selectedCreditNote}
+          />
           <button onClick={resetSelection}>Seguir asignando</button>
         </div>
       </Modal>
