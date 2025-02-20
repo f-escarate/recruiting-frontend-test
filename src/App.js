@@ -1,23 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import InvoicesList from './components/InvoicesList';
+import { useEffect, useState } from 'react';
+import { getPendings } from './api/invoices';
 
 function App() {
+  const [invoices, setInvoices] = useState([]);
+    useEffect(() => {
+        getPendings()
+            .then(data => setInvoices(data))
+            .catch(error => console
+            .error(error));
+    }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="m-8 flex flex-col items-center gap-4">
+      <h1 className="text-2xl font-bold text-center">Invoices</h1>
+      <InvoicesList invoices={invoices}/>
     </div>
   );
 }
